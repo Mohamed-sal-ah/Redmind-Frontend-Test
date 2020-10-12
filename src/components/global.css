@@ -1,0 +1,10 @@
+/* importing fonts */
+
+@font-face {
+    src: url("../font/RussoOne-Regular.ttf");
+    font-family: RussoOne;
+}
+@font-face {
+    src: url("../font/Play-Regular.ttf");
+    font-family: Play;
+}
