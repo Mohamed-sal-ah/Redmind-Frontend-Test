@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import * as STYLED from './style'
+import CharacterListItem from './CharacterListItem'
+import SelectedCharacter from './SelectedCharacter'
 // Importing styled-componets elements
 import './global.css'
 // Importing css file
@@ -98,37 +100,13 @@ class AllCharacter extends Component {
                         </STYLED.SearchSpan>
                     </STYLED.SearchDiv>
                     <STYLED.AboveDiv>
-                        <STYLED.SelectedCharDiv
-                            animate={showOneCharacter ? "show" : "hide"}
-                            variants={infoVariant}
-                            transition={{ duration: 0.5 }}
-                        >
-                            {showOneCharacter ?
-                                <>
-                                    <STYLED.NameAndButtonDiv
-                                        style={{ opacity: opacityHide }}
-                                    >
-                                        <STYLED.SelectedCharName>
-                                            {selectedChar.name}
-                                        </STYLED.SelectedCharName>
-                                        <STYLED.CancelButton onClick={this.onCancelOneCharacter}>
-                                            <STYLED.CancelSymbol />
-                                        </STYLED.CancelButton>
-                                    </STYLED.NameAndButtonDiv>
-                                    <STYLED.InfoTextDiv
-                                        style={{ opacity: opacityHide }}
-                                    >
-                                        <STYLED.InfoText>Birth Year : {selectedChar.birth_year}</STYLED.InfoText>
-                                        <STYLED.InfoText>Eye Color : {selectedChar.eye_color}</STYLED.InfoText>
-                                        <STYLED.InfoText>Gender : {selectedChar.gender}</STYLED.InfoText>
-                                        <STYLED.InfoText>Hair Color : {selectedChar.hair_color}</STYLED.InfoText>
-                                        <STYLED.InfoText>Height : {selectedChar.height}</STYLED.InfoText>
-                                        <STYLED.InfoText>Mass : {selectedChar.mass}</STYLED.InfoText>
-                                        <STYLED.InfoText>Skin Color : {selectedChar.skin_color}</STYLED.InfoText>
-                                    </STYLED.InfoTextDiv>
-                                </>
-                                : null}
-                        </STYLED.SelectedCharDiv>
+                        <SelectedCharacter
+                            showOneCharacter={showOneCharacter}
+                            infoVariant={infoVariant}
+                            selectedChar={selectedChar}
+                            opacityHide={opacityHide}
+                            onCancelOneCharacter={this.onShowOneCharacter}
+                        />
                     </STYLED.AboveDiv>
                     <STYLED.AllCharactersUL
                         animate={showOneCharacter ? "hideAll" : "allShow"}
@@ -136,14 +114,12 @@ class AllCharacter extends Component {
                         transition={{ duration: 0.5 }}
                     >
                         {filterCharacter.map((character, key) => (
-                            <STYLED.OneCharacterLI key={key}>
-                                <STYLED.CharacterNameLI>
-                                    {character.name}
-                                </STYLED.CharacterNameLI>
-                                <STYLED.InfoButton onClick={() => this.onShowOneCharacter(key)} disabled={showOneCharacter}>
-                                    <STYLED.InfoSymbol />
-                                </STYLED.InfoButton>
-                            </STYLED.OneCharacterLI>
+                            <CharacterListItem key={key}
+                                index={key}
+                                character={character}
+                                showOneCharacter={showOneCharacter}
+                                onShowOneCharacter={this.onShowOneCharacter}
+                            />
                         ))}
                     </STYLED.AllCharactersUL>
                 </> : <STYLED.LoadingScreen />}
